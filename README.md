@@ -1,3 +1,3 @@
 # CS-402
 
-cs.iit.edu/~virgil/cs402
+http://cs.iit.edu/~virgil/cs402/
