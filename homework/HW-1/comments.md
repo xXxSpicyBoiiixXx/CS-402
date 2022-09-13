@@ -18,7 +18,7 @@ Currently, I have left it as is with object files since the conversion between h
 
 1a. The historgrams are made with gnuplot. I only ploted a the first 1000 since the data is so sparsed. 
 
-In terms of the histogram plots, it seems that there is an access pattern for each of these except for the writes. 
+In terms of the histogram plots, it seems that there is an access pattern for each of these. For instance the instruction fetch for SPICE seems to have a sawtooth like structure while the instruction fetch for TeX has more of a binary box like pattern. In regards to SPICE read data graph there seems to specific bursts of reading data while the TeX read data pattern is again a binary like strcuture. Lastly, there is sortof a pattern of a binary structure in SPICE for the write data but tators off, bear in mind we only plotted the first 1000 data points for this specfic graph so it might be different if we plotted more but the write data historgram for TeX seems to have the same binary strucutre.  
 
 Both SPICE data and TeX data can be found in the result folder under the file "complete-data.txt". In addition, each individual section has it's on text files e.g. instruction-fetch, read-data, and write-data. 
 
@@ -40,8 +40,6 @@ Here we can see that in both trace files the fequency of reads is greater than t
 
 1a. There are two programs "int-matrix.c" and "double-matrix.c" you can run them with the "make part2" execution and you will have prompts to input your matrices. From there are execution time outputs in seconds. Make sure that it is compatible for multiplication as it will through an error if you input invalid dimensions. 
 
-Note the cap is due to the segmentation faults on my systems. 
-
 The two systems I will be testing have the following set ups. 
 
 1) Manufactuer: Apple
@@ -56,7 +54,7 @@ The two systems I will be testing have the following set ups.
    OS: macOS Monterey 12.5.1
    Compiler: GCC
 
-We utilized a 90000 x 10000 and 10000 x 90000 matrix for the calculation. For the M1 we have the following averages in seconds. These can be found in the "data" folder. 
+We utilized a 90000 x 10000 and 10000 x 90000 matrix for the calculation. For the M1 we have the following averages in seconds. These can be found in the "data" folder where we ran each of these caluclation five times and where the table is shown in each case depending on forward/reverse, chip type, and all the execution times for int or doubles.  
 
 Forward Average Execution Time Int: 12.8016852
 Forward Average Execution Time Double: 12.8228194   
