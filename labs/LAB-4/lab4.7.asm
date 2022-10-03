@@ -1,4 +1,4 @@
-A:
+A:      
         addiu   $sp,$sp,-40
         sw      $31,36($sp)
         sw      $fp,32($sp)
