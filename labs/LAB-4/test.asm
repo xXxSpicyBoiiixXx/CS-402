@@ -1,6 +1,21 @@
+<<<<<<< HEAD
                 .data
 #        .align  2
 int_1:          .asciiz	"\nEnter a non-negative integer: "
+=======
+A:      
+        addiu   $sp,$sp,-40
+        sw      $31,36($sp)
+        sw      $fp,32($sp)
+        sw      $16,28($sp)
+        move    $fp,$sp
+        sw      $4,40($fp)
+        sw      $5,44($fp)
+        lw      $2,40($fp)
+        nop
+        bne     $2,$0,$L2
+        nop
+>>>>>>> 738d4d8fad772eb502d27af746cd66745733cd50
 
 int_2:          .asciiz	"\nEnter another non-negative integer: "
 
