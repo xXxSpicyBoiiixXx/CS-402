@@ -26,7 +26,7 @@ int main() {
                 break;
             case 5: printf("Come hack this later:) Goodbye!\n"); 
                 break;
-            case 42: 
+            case 42: easterEgg();  
                 break; 
             default: printf("Incorrect input, please try again\n\n"); 
                 break; 
