@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printDatabase() { 
+#define MAX_LINE_LENGTH 1000
+
+void printDatabase(FILE *textfile) {
+   char data[MAX_LINE_LENGTH]; 
+
+   while((data = fgetc(textfile)) != EOF) {
+        putchar(data); 
+   } 
         
 }
 
