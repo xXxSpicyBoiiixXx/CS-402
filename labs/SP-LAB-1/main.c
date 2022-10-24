@@ -8,14 +8,40 @@
 //#include "menu.h"
 //#include "options.h"
 
+#define MIN_ID 100000
+#define MIN_SALARY 30000
+
+#define MAX_EMPLOYEES 1024
+#define MAX_ID 999999
+#define MAX_NAME 64
+#define MAX_SALARY 150000
+#define MAX_COLUMNS 3 
+#define MAX_LINE_LENGHT ??? 
+
+struct Employee { 
+    unsigned long six_digit_ID; 
+    string first_name;
+    string last_name; 
+    unsigned long salary; 
+};
+
 int main(int argc, char *argv[]) { 
 
     int choice; 
     FILE *database; 
     char *data; 
     long numbytes;    
+    int elements[MAX_EMPLOYEES][MAX_COLUMNS];
+    struct Employee employee[MAX_EMPLOYEES];
 
-    
+    /*
+    // Data in file
+    unsigned long six_digit_ID[MAX_EMPLOYEES];
+    string first_name[MAX_EMPLOYEES]; 
+    string last_name[MAX_EMPLOYEES];
+    unsigned long salary[MAX_EMPLOYEES]; 
+    */
+
     if(argc == 2) { 
         printf("The database file is %s\n", argv[1]); 
     } else if(argc > 2) { 
@@ -34,6 +60,21 @@ int main(int argc, char *argv[]) {
      exit(EXIT_FAILURE);
     } 
 
+    if(NULL != database) { 
+        int row = 0; 
+        char lineBuf[MAX_LINE_LENGTH]; 
+        while(NULL != fgets(buf, sizeof(lineBuf), database)) 
+        {
+            int col = 0;
+            const char *colData = lineBuf;
+            elements[row][col++] = atoi(colData); 
+            printf(%i, elements[row][col]); 
+            row++;
+            
+        }
+    }
+
+    
 /*    introMenu(); 
 
     do {

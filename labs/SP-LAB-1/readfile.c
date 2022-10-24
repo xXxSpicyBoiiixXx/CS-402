@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
+
+
 FILE open_file(char *file[]) { 
     FILE database; 
 
@@ -9,12 +11,17 @@ FILE open_file(char *file[]) {
 
     if(database == NULL) { 
         printf("No database found"); 
-        exit(EXIT_FAILURE);
+        //exit(EXIT_FAILURE);
+        return 1; 
     }
+
+    return database;
 }
 
+
+
 float read_float(float &f) { 
-        
+      
 }
 
 int read_int(int &x) { 
