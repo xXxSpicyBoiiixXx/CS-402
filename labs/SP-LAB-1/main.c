@@ -5,25 +5,36 @@
 #include <errno.h>
 #include <string.h> 
 
-#include "menu.h"
-#include "options.h"
+//#include "menu.h"
+//#include "options.h"
 
-int main() { 
-    
+int main(int argc, char *argv[]) { 
+
     int choice; 
     FILE *database; 
     char *data; 
-    long numbytes; 
+    long numbytes;    
 
-    database = fopen("database.txt", "r"); 
     
+    if(argc == 2) { 
+        printf("The database file is %s\n", argv[1]); 
+    } else if(argc > 2) { 
+        printf("Too many arguments supplied.\n");
+        exit(EXIT_FAILURE);
+    } else { 
+        printf("Please provide only one database in .txt format"); 
+        exit(EXIT_FAILURE);    
+    }
+
+    database = fopen(argv[1], "r"); 
+
+    // Error handling for missing database
     if(database == NULL) { 
 //     fprintf(stderr, "%s: No database found %s ; %s\n", program_invocation_short_name, name, strerror(errno)); 
      exit(EXIT_FAILURE);
     } 
 
-
-    introMenu(); 
+/*    introMenu(); 
 
     do {
         
@@ -48,7 +59,7 @@ int main() {
         }
 
     } while(choice != 5);
-
+*/
     fclose(database); 
 
  return 0;   
