@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h> 
+#include <ctype.h> 
 
 //#include "menu.h"
 //#include "options.h"
+#include "readfile.h" 
 
 #define MIN_ID 100000
 #define MIN_SALARY 30000
@@ -16,14 +18,17 @@
 #define MAX_NAME 64
 #define MAX_SALARY 150000
 #define MAX_COLUMNS 3 
-#define MAX_LINE_LENGHT ??? 
-
+#define MAX_LINE_LENGHT 100 
+/*
 struct Employee { 
     unsigned long six_digit_ID; 
-    string first_name;
-    string last_name; 
+    char * first_name;
+    char * last_name; 
     unsigned long salary; 
 };
+
+void Employee__init(Employee* self, unsigned long six_digit_ID, char * first_name, char * last_name, unsigned long salary) { 
+}*/
 
 int main(int argc, char *argv[]) { 
 
@@ -32,7 +37,7 @@ int main(int argc, char *argv[]) {
     char *data; 
     long numbytes;    
     int elements[MAX_EMPLOYEES][MAX_COLUMNS];
-    struct Employee employee[MAX_EMPLOYEES];
+    Employee * EmployeePtr;
 
     /*
     // Data in file
