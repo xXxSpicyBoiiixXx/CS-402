@@ -4,17 +4,19 @@
 
 #include "readfile.h"
 
-int open_file(char *file) { 
-    FILE *database; 
-    database = fopen(file, "r"); 
+FILE *file; 
 
-    if(database == NULL) { 
+int open_file(char *textfile) { 
+    file  = fopen(textfile, "r"); 
+
+    if(file == 0) { 
         printf("No database found\n"); 
         //exit(EXIT_FAILURE);
         return -1; 
-    }
+    } else {
 
     return 0;
+   }
 }
 
 int read_float(char x[], int option, float* var) { 

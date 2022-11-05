@@ -160,9 +160,6 @@ int addEmployee(struct Employee employeeData[]) {
 }
 int main(int argc, char *argv[]) { 
 
-    int choice; 
-    int return_value; 
-
     if(argc == 2) { 
         printf("The database file is %s\n", argv[1]); 
     } else if(argc > 2) { 
@@ -172,7 +169,9 @@ int main(int argc, char *argv[]) {
         printf("Please provide only one database in .txt format"); 
         exit(EXIT_FAILURE);    
     }
-
+    
+    int choice; 
+    int return_value;
     if(open_file(argv[1]) == 0) { 
         char buffer[135];
         int ret; 
