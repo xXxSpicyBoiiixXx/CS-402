@@ -1,22 +1,16 @@
-GCC_EXEC = gcc
+GCC_EXEC = gcc -c 
 
-GCC_IGNORED_FLAGS = packed-bitfield-compat \
-					unused-parameter \
-					cast-function-type
+CFLGS = -g -Wall -Wextra -Werror -O3 #-target x86_64-apple-darwin20.3.0
 
-GCC_WARNING_FLAGS = -Wall -Wextra $(addprefix -Wno-, $(GCC_IGNORED_WARNINGS))
-
-CFLGS = -g -Wall -lm -O3
-
-all: main.c	menu.c options.c employee.c readfile.c
-		$(GCC_EXEC) $(CFLAGS) menu.c -o menu.o
-		$(GCC_EXEC) $(CFLAGS) options.c -o options.o
-		$(GCC_EXEC) $(CFLAGS) employee.c -o employee.o
-		$(GCC_EXEC) $(CFLAGS) readfile.c -o readfile.o
-		$(GCC_EXEC) $(CFLAGS) -o workerDB main.c menu.o options.o employee.o readfile.o
-
+all: main.c	menu.c readfile.c
+		$(GCC_EXEC) $(CFLAGS) menu.c
+#		$(GCC_EXEC) $(CFLAGS) employee.c
+#	$(GCC_EXEC) $(CFLAGS) options.c 
+		$(GCC_EXEC) $(CFLAGS) readfile.c
+#		$(GCC_EXEC) $(CFLAGS) -o workerDB main.c menu.o options.o employee.o readfile.o
+		$(GCC_EXEC) $(CFLAGS) main.c menu.o readfile.o
 run:
-		./workerDB 
+		./main.o database.txt 
 
 clean: 
 		$(RM) -rf ./workerDB *.o *.~ *.dSYM 

@@ -2,10 +2,10 @@
 #define _READFILE_H_
 
 extern int open_file(); 
-extern void close();
+extern void close_file();
 
 extern int read_float(); 
-extern int read_int(int);
+extern int read_int();
 extern int read_string(); 
 
 #endif 

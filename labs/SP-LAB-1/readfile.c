@@ -5,7 +5,7 @@
 #include "readfile.h"
 
 int open_file(char *file) { 
-    FILE database; 
+    FILE *database; 
     database = fopen(file, "r"); 
 
     if(database == NULL) { 
@@ -17,37 +17,44 @@ int open_file(char *file) {
     return 0;
 }
 
-int read_float(float *f) { 
-    scanf("%f", &f);
+int read_float(char x[], int option, float* var) { 
+    float a,b; 
+    char c[64], d[64]; 
 
-    if(f == NULL) { 
-        printf("Variable is not of type 'float'\n"); 
-        return -1; 
-    }
+    if(option == 1) {
+        sscanf(x, "%f %s %s %f", var, c, d, &b); 
+    } else { 
+        sscanf(x, "%f %s %s %f", &a, c, d, var); 
+    } 
 
     return 0;     
 }
 
-int read_int(int &x) { 
-    scanf("%d", &x)
-        
-    if(x == NULL) { 
-        printf("Variable is not of type 'int'\n"); 
-        return -1;       
-    }
+int read_int(char x[], int option, int* var) { 
+    int a,b; 
+    char c[64], d[64]; 
+
+    if(option == 1) {
+        sscanf(x, "%d %s %s %d", var, c, d, &b); 
+    } else { 
+        sscanf(x, "%d %s %s %d", &a, c, d, var); 
+    } 
+
+   
     return 0;
 }   
 
-string read_string(char &s[20]) { 
-    scanf("%s", &s);
-
-    if(s == NULL) { 
-        printf("Variable is not of type 'char[20]'\n"); 
-        return -1;
+int read_string(char x[], int option, char y[]) { 
+    int a,b;
+    char c[64], d[64];
+    if(option == 1) { 
+        sscanf(x, "%d %s %s %d", &a, y, d, &b);
+    } else { 
+        sscanf(x, "%d %s %s %d", &a, c, d, &b); 
     }
     return 0;
 }
 
-void close_file(char* file) { 
+void close_file(FILE* file) { 
     fclose(file);
 }

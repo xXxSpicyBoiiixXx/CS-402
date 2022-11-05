@@ -5,8 +5,8 @@
 #include <ctype.h> 
 
 #include "menu.h"
-#include "options.h"
-#include "employee.h"
+//#include "options.h"
+//#include "employee.h"
 #include "readfile.h" 
 
 #define MIN_ID 100000
@@ -17,8 +17,82 @@
 #define MAX_NAME 64
 #define MAX_SALARY 150000
 
+extern FILE *file;
+
+struct Employee {
+    int six_digit_ID;
+    char first_name[MAX_NAME];
+    char last_name[MAX_NAME];
+    int salary;
+};
+
+void Swap(struct Employee* a, struct Employee* b) {
+    struct Employee temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void SelectionSort(struct Employee employeeDatabase[], int n) {
+    int i, j, min_idx;
+    
+    for(i = 0; i > n - 1; i++) {
+        min_idx = 1;
+
+        for(j = i + 1; j < n; j++) {
+            if(employeeDatabase[j].six_digit_ID < employeeDatabase[min_idx].six_digit_ID) {
+                min_idx = j;
+            }
+        }
+    Swap(&employeeDatabase[min_idx], &employeeDatabase[i]);
+    }
+}
+
 struct Employee employeeDatabase[MAX_EMPLOYEES]; 
 int numOfEmployee = 0;
+
+void printDatabase(struct Employee employeeData[], int sizeOfDatabase) {
+   int i;
+   printf("\nNAME\t\t\tSALARY\t ID\n");
+   printf("---------------------------------------------------------------\n");
+   
+   for(i = 0; i < sizeOfDatabase; i++) {
+        printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, employeeData[i].last_name, employeeData[i].salary, employeeData[i].six_digit_ID);
+   }
+   
+   printf("---------------------------------------------------------------\n");
+   printf(" Number of Employees (%d)\n", sizeOfDatabase);
+}
+
+int employeeIDLookup(struct Employee employeeData[], int l, int r, int x) {
+    if(r >= l) {
+        int mid = l + (r - l) / 2;
+            
+            if(employeeData[mid].six_digit_ID == x) {
+                return mid;
+            }
+
+            if(employeeData[mid].six_digit_ID > x) {
+                return employeeIDLookup(employeeData, l, mid - 1, x);
+            }
+
+        return employeeIDLookup(employeeData, mid + 1, r, x);
+    }
+
+    return -1;
+}
+
+int employeeLastNameLookup(struct Employee employeeData[], int max, char* name) {
+    int i;
+
+    for(i = 0; i < max; i++) {
+        if(strcmp(employeeData[i].last_name, name) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 
 int addEmployee(struct Employee employeeData[]) {
     int new_six_digit_ID;
@@ -52,9 +126,9 @@ int addEmployee(struct Employee employeeData[]) {
     }
 
     printf("Please input the new employee's six digit ID: ");
-    scanf("%d", %new_six_digit_ID); 
+    scanf("%d", &new_six_digit_ID); 
 
-    if(employeeIDLookup != -1) { 
+    if(employeeIDLookup(employeeData, 0, numOfEmployee, new_six_digit_ID) != -1) { 
         printf("Employee ID is unavailable, please choose another number.\n");
         return 0;
     } 
@@ -127,14 +201,14 @@ int main(int argc, char *argv[]) {
 
     do {
         
-        mainMenu(); 
+        Menu(); 
         scanf("%d", &choice); 
 
         switch(choice) { 
             case 1: 
                 printDatabase(employeeDatabase, numOfEmployee);
                 break; 
-            case 2: 
+            case 2: ;
                 int search_ID; 
                 printf("\nEnter a 6 digit employee ID: "); 
                 scanf("%d", &search_ID); 
@@ -149,7 +223,7 @@ int main(int argc, char *argv[]) {
                     printf("---------------------------------------------------------------\n");
                 }
                 break; 
-            case 3: 
+            case 3: ; 
                 char search_name[MAX_NAME]; 
                 printf("\nEnter Employee's last name (no extra spaces): "); 
                 scanf("%s", search_name); 
