@@ -7,7 +7,7 @@ void introMenu() {
         printf("Welcome to DEADBEEF Inc. where we have the lowest security for employee information! Feel free to look around\n\n"); 
 }
 
-void mainMenu() { 
+void Menu() { 
     
     printf("\nEmployee DB Menu:\n"); 
     printf("----------------------------------\n"); 

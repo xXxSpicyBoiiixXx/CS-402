@@ -2,7 +2,7 @@
 #define _MENU_H
 
 extern void introMenu(); 
-extern void mainMenu();
+extern void Menu();
 extern void easterEgg(); 
 
 #endif 
