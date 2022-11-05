@@ -1,9 +1,11 @@
-#include <stdlib.h> 
-#include <stdio.h> 
-#include <string.h> 
+#ifndef _READFILE_H_
+#define _READFILE_H_
 
-int open_file(char *[]); 
+extern int open_file(); 
+extern void close();
 
-int read_float(float); 
-int read_int(int);
-int read_string(char [20]); 
+extern int read_float(); 
+extern int read_int(int);
+extern int read_string(); 
+
+#endif 

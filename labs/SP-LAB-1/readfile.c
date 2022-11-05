@@ -4,7 +4,7 @@
 
 #include "readfile.h"
 
-int open_file(char *file[]) { 
+int open_file(char *file) { 
     FILE database; 
     database = fopen(file, "r"); 
 
@@ -17,7 +17,7 @@ int open_file(char *file[]) {
     return 0;
 }
 
-int read_float(float &f) { 
+int read_float(float *f) { 
     scanf("%f", &f);
 
     if(f == NULL) { 
@@ -27,7 +27,6 @@ int read_float(float &f) {
 
     return 0;     
 }
-
 
 int read_int(int &x) { 
     scanf("%d", &x)
@@ -49,3 +48,6 @@ string read_string(char &s[20]) {
     return 0;
 }
 
+void close_file(char* file) { 
+    fclose(file);
+}

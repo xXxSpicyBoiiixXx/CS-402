@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "menu.h"
 
 void introMenu() { 
@@ -9,12 +9,15 @@ void introMenu() {
 
 void mainMenu() { 
     
-    printf("Please select one of the options: \n"); 
-    printf("[1] Print Database\n"); 
-    printf("[2] Lookup by Employee ID\n");
-    printf("[3] Lookup by Employee Last Name\n"); 
-    printf("[4] Add an Employee (Hacker Mode Boi)\n");  
-    printf("[5] Exit\n"); 
+    printf("\nEmployee DB Menu:\n"); 
+    printf("----------------------------------\n"); 
+    printf("\t(1) Print the Database\n");
+    printf("\t(2) Lookup by ID\n"); 
+    printf("\t(3) Lookup by Last Name\n");
+    printf("\t(4) Add an Employee (Hacker Mode Boi)\n");  
+    printf("\t(5) Quit\n");
+    printf("----------------------------------\n");
+    printf("Enter your choice: "); 
 }
 
 void easterEgg() {

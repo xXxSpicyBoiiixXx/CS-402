@@ -1,13 +1,12 @@
-//#define _GNU_SOURCE
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h> 
 #include <ctype.h> 
 
-//#include "menu.h"
-//#include "options.h"
+#include "menu.h"
+#include "options.h"
+#include "employee.h"
 #include "readfile.h" 
 
 #define MIN_ID 100000
@@ -17,35 +16,78 @@
 #define MAX_ID 999999
 #define MAX_NAME 64
 #define MAX_SALARY 150000
-#define MAX_COLUMNS 3 
-#define MAX_LINE_LENGHT 100 
-/*
-struct Employee { 
-    unsigned long six_digit_ID; 
-    char * first_name;
-    char * last_name; 
-    unsigned long salary; 
-};
 
-void Employee__init(Employee* self, unsigned long six_digit_ID, char * first_name, char * last_name, unsigned long salary) { 
-}*/
+struct Employee employeeDatabase[MAX_EMPLOYEES]; 
+int numOfEmployee = 0;
 
+int addEmployee(struct Employee employeeData[]) {
+    int new_six_digit_ID;
+    char new_first_name[MAX_NAME]; 
+    char new_last_name[MAX_NAME];
+    int new_salary; 
+    int confirmation; 
+
+    printf("\nPlease input the first name of the new employee: "); 
+    scanf("%s", new_first_name); 
+
+    if(strlen(new_first_name) > MAX_NAME) { 
+        printf("First name can't be more than 64 characters long, please try again.\n"); 
+        return 0;
+    }
+
+    printf("Please input the last name of the new employee: "); 
+    scanf("%s", new_last_name); 
+
+    if(strlen(new_last_name) > MAX_NAME) { 
+        printf("Last name can't be more than 64 characters long, please try again.\n");
+        return 0;
+    }
+
+    printf("Please input the new employee's salary: "); 
+    scanf("%d", &new_salary); 
+
+    if(new_salary < MIN_SALARY || new_salary > MAX_SALARY) { 
+        printf("Salary can't be less than 30000 or greater than 150000.\n"); 
+        return 0;
+    }
+
+    printf("Please input the new employee's six digit ID: ");
+    scanf("%d", %new_six_digit_ID); 
+
+    if(employeeIDLookup != -1) { 
+        printf("Employee ID is unavailable, please choose another number.\n");
+        return 0;
+    } 
+
+    if(new_six_digit_ID < MIN_ID || new_six_digit_ID > MAX_ID) { 
+        printf("Employee must have a 6 digit ID.\n");
+        return 0; 
+    }
+    
+
+    printf("\nYou sure you wanna add this employee?\n"); 
+    printf("\t%s %s, \tSALARY: %d, \tID: %d\n", new_first_name, new_last_name, new_salary, new_six_digit_ID); 
+    printf("Enter 1 for yes or 0 for no: "); 
+    scanf("%d", &confirmation); 
+    
+    if(confirmation == 1) { 
+        strcpy(employeeDatabase[numOfEmployee].first_name, new_first_name); 
+        strcpy(employeeDatabase[numOfEmployee].last_name, new_last_name);
+        employeeDatabase[numOfEmployee].salary = new_salary; 
+        employeeDatabase[numOfEmployee].six_digit_ID = new_six_digit_ID; 
+        numOfEmployee++;
+        printf("Success!"); 
+    }
+
+    SelectionSort(employeeDatabase, numOfEmployee); 
+
+    return 1; 
+
+}
 int main(int argc, char *argv[]) { 
 
     int choice; 
-    FILE *database; 
-    char *data; 
-    long numbytes;    
-    int elements[MAX_EMPLOYEES][MAX_COLUMNS];
-    Employee * EmployeePtr;
-
-    /*
-    // Data in file
-    unsigned long six_digit_ID[MAX_EMPLOYEES];
-    string first_name[MAX_EMPLOYEES]; 
-    string last_name[MAX_EMPLOYEES];
-    unsigned long salary[MAX_EMPLOYEES]; 
-    */
+    int return_value; 
 
     if(argc == 2) { 
         printf("The database file is %s\n", argv[1]); 
@@ -57,30 +99,31 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);    
     }
 
-    database = fopen(argv[1], "r"); 
+    if(open_file(argv[1]) == 0) { 
+        char buffer[135];
+        int ret; 
 
-    // Error handling for missing database
-    if(database == NULL) { 
-//     fprintf(stderr, "%s: No database found %s ; %s\n", program_invocation_short_name, name, strerror(errno)); 
-     exit(EXIT_FAILURE);
-    } 
+        while(fgets(buffer, sizeof(buffer), file)) { 
+            ret = read_int(buffer, 1, &employeeDatabase[numOfEmployee].six_digit_ID);
+            ret = read_int(buffer, 2, &employeeDatabase[numOfEmployee].salary);
+            ret = read_string(buffer, 1, &employeeDatabase[numOfEmployee].first_name); 
+            ret = read_string(buffer, 2, &employeeDatabase[numOfEmployee].last_name); 
+            numOfEmployee++; 
 
-    if(NULL != database) { 
-        int row = 0; 
-        char lineBuf[MAX_LINE_LENGTH]; 
-        while(NULL != fgets(buf, sizeof(lineBuf), database)) 
-        {
-            int col = 0;
-            const char *colData = lineBuf;
-            elements[row][col++] = atoi(colData); 
-            printf(%i, elements[row][col]); 
-            row++;
-            
+            if(numOfEmployee > MAX_EMPLOYEES) { 
+                printf("We're only allowed a max of 1024 employees at once, exiting"); 
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        if(feof(file)) { 
+            close_file(file); 
         }
     }
 
+    SelectionSort(employeeDatabase, numOfEmployee); 
     
-/*    introMenu(); 
+    introMenu(); 
 
     do {
         
@@ -88,13 +131,41 @@ int main(int argc, char *argv[]) {
         scanf("%d", &choice); 
 
         switch(choice) { 
-            case 1: printDatabase(database);
+            case 1: 
+                printDatabase(employeeDatabase, numOfEmployee);
                 break; 
-            case 2: employeeIDLookup();
+            case 2: 
+                int search_ID; 
+                printf("\nEnter a 6 digit employee ID: "); 
+                scanf("%d", &search_ID); 
+                return_value = employeeIDLookup(employeeDatabase, 0, numOfEmployee, search_ID);
+                
+                if(return_value == -1) { 
+                    printf("\n Employee ID '%d' does not exist in the database\n", search_ID);
+                } else { 
+                    printf("\nNAME\t\t\t\tSALARY\t ID \n"); 
+                    printf("---------------------------------------------------------------\n");
+                    printf("%-15s\t%-15s\t%d\t%d\n", employeeDatabase[return_value].first_name, employeeDatabase[return_value].last_name, employeeDatabase[return_value].salary, employeeDatabase[return_value].six_digit_ID); 
+                    printf("---------------------------------------------------------------\n");
+                }
                 break; 
-            case 3: employeeLastNameLookup();
+            case 3: 
+                char search_name[MAX_NAME]; 
+                printf("\nEnter Employee's last name (no extra spaces): "); 
+                scanf("%s", search_name); 
+                return_value = employeeLastNameLookup(employeeDatabase, numOfEmployee, search_name); 
+                
+                if(return_value == -1) { 
+                    printf("\n Employee with last name '%s' does not exist in the database\n", search_name); 
+                } else { 
+                    printf("\nNAME\t\t\t\tSALARY\t ID \n"); 
+                    printf("---------------------------------------------------------------\n");
+                    printf("%-15s\t%-15s\t%d\t%d\n", employeeDatabase[return_value].first_name, employeeDatabase[return_value].last_name, employeeDatabase[return_value].salary, employeeDatabase[return_value].six_digit_ID); 
+                    printf("---------------------------------------------------------------\n");
+                }
                 break;
-            case 4: addEmployee(); 
+            case 4: 
+                addEmployee(employeeDatabase);
                 break;
             case 5: printf("Come hack this later:) Goodbye!\n"); 
                 break;
@@ -105,8 +176,6 @@ int main(int argc, char *argv[]) {
         }
 
     } while(choice != 5);
-*/
-    fclose(database); 
 
  return 0;   
 

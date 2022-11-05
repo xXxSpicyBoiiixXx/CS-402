@@ -1,19 +1,4 @@
 GCC_EXEC = gcc
-CLANG_EXEC = clang
-
-CLANG_IGNORED_WARNINGS = reserved-id-macro \
-						 variadic-macros   \
-						 undef \
-						 gnu-zero-variadic-macro-arguments \
-						 documentation \
-						 padded \
-						 missing-noreturn \
-						 unused-parameter \
-						 covered-switch-default \
-						 disabled-macro-expansion \
-						 pedantic 
-
-CLANG_WARNING_FLAGS = -Weverything $(addprefix -Wno, $(CLANG_IGNORED_WARNINGS))
 
 GCC_IGNORED_FLAGS = packed-bitfield-compat \
 					unused-parameter \
@@ -23,14 +8,16 @@ GCC_WARNING_FLAGS = -Wall -Wextra $(addprefix -Wno-, $(GCC_IGNORED_WARNINGS))
 
 CFLGS = -g -Wall -lm -O3
 
-all: main.c	menu.c options.c
-		$(CC) $(CFLAGS) menu.c -o menu.o
-		$(CC) $(CFLAGS) options.c -o options.o
-		$(CC) $(CFLAGS) main.c -o main.o	
+all: main.c	menu.c options.c employee.c readfile.c
+		$(GCC_EXEC) $(CFLAGS) menu.c -o menu.o
+		$(GCC_EXEC) $(CFLAGS) options.c -o options.o
+		$(GCC_EXEC) $(CFLAGS) employee.c -o employee.o
+		$(GCC_EXEC) $(CFLAGS) readfile.c -o readfile.o
+		$(GCC_EXEC) $(CFLAGS) -o workerDB main.c menu.o options.o employee.o readfile.o
 
 run:
-		./main.o
+		./workerDB 
 
 clean: 
-		$(RM) -rf *.o *.~ *.dSYM 
+		$(RM) -rf ./workerDB *.o *.~ *.dSYM 
 
