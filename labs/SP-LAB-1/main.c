@@ -52,7 +52,7 @@ int numOfEmployee = 0;
 
 void printDatabase(struct Employee employeeData[], int sizeOfDatabase) {
    int i;
-   printf("\nNAME\t\t\tSALARY\t ID\n");
+   printf("\nNAME\t\t\t\tSALARY\t ID\n");
    printf("---------------------------------------------------------------\n");
    
    for(i = 0; i < sizeOfDatabase; i++) {

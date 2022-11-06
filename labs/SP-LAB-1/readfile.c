@@ -52,7 +52,7 @@ int read_string(char x[], int option, char y[]) {
     if(option == 1) { 
         sscanf(x, "%d %s %s %d", &a, y, d, &b);
     } else { 
-        sscanf(x, "%d %s %s %d", &a, c, d, &b); 
+        sscanf(x, "%d %s %s %d", &a, c, y, &b); 
     }
     return 0;
 }
