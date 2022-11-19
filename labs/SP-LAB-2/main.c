@@ -45,8 +45,25 @@ void SelectionSort(struct Employee employeeDatabase[], int n) {
         }
     Swap(&employeeDatabase[min_idx], &employeeDatabase[i]);
     }
+
 }
 
+void SelectionSortSalary(struct Employee employeeDatabase[], int n) { 
+      int i, j, min_idx;
+    
+    for(i = 0; i > n - 1; i++) {
+        min_idx = 1;
+
+        for(j = i + 1; j < n; j++) {
+            if(employeeDatabase[j].salary < employeeDatabase[min_idx].salary) {
+                min_idx = j;
+            }
+        }
+    Swap(&employeeDatabase[min_idx], &employeeDatabase[i]);
+    }
+
+  
+}
 struct Employee employeeDatabase[MAX_EMPLOYEES]; 
 int numOfEmployee = 0;
 
@@ -165,7 +182,6 @@ void removeEmployee(struct Employee employeeData[], int n) {
    printf("\nNAME\t\t\t\tSALARY\t ID\n");
    printf("---------------------------------------------------------------\n");
         printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, employeeData[i].last_name, employeeData[i].salary, employeeData[i].six_digit_ID);
-   }
    printf("---------------------------------------------------------------\n");
         printf("Would you like to fire this employee permantly lol? Enter 1 for YES or 0 for NO.\n");
         printf("Enter your choice: "); 
@@ -182,20 +198,250 @@ void removeEmployee(struct Employee employeeData[], int n) {
         }
 }
 
-/*
- * int updateEmployee() { 
- *  
- * }
- *
- * void printHighestSalary() { 
- *
- * }
- *
- * int matchingLastName() { 
- *
- * }
- *
- */
+
+int updateEmployee(struct Employee employeeData[], int i) {
+
+   int choice; 
+   char first_name[MAX_NAME]; 
+   char last_name[MAX_NAME];
+   int updated_salary; 
+   int updated_id;
+
+   printf("\nNAME\t\t\t\tSALARY\t ID\n");
+   printf("---------------------------------------------------------------\n");
+        printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, employeeData[i].last_name, employeeData[i].salary, employeeData[i].six_digit_ID);
+   printf("---------------------------------------------------------------\n");
+        printf("Would you like to update your information (basically put your salary as high as possible)? Enter 1 for YES or 0 for NO.\n");
+        printf("Enter your choice: "); 
+        scanf("%d", &choice);
+        
+       if(choice == 0) { 
+            printf("\nNo Update boi\n"); 
+            return 0; 
+       } else if(choice == 1) { 
+           printf("\nWhich information would you like to update. (If you're smart you would change the salary)?\n");
+           printf("\t(1) First Name\n");
+           printf("\t(2) Last Name\n");
+           printf("\t(3) Salary\n");
+           printf("\t(4) Employee ID\n");
+           printf("\t(5) All of the Employee's Data\n");
+           printf("Enter your choice: ");
+           scanf("%d", &choice);
+
+           switch (choice) {
+               case 1:
+                   printf("\n Please enter the updated first name: ");
+                   scanf("%s", first_name);
+
+                   printf("\nName\t\t\t\tSALARY\t   ID\n");
+                   printf("----------------------------------------------\n");
+                   printf("%-15s\t%-15s\t%d\t%d\n", first_name, employeeData[i].last_name, employeeData[i].salary, employeeData[i].six_digit_ID);
+                   printf("----------------------------------------------\n");
+                   printf("Is this information correct? Enter 1 for Yes, or 0 for No.\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &choice);
+
+                   if (choice == 1)
+                   {
+                       printf("\nUpdate Complete.\n");
+                       strcpy(employeeData[i].first_name, first_name);
+                   }
+                   else if (choice == 0)
+                   {
+                       printf("\nUpdate Cancelled.\n");
+                   }
+                   else
+                   {
+                       printf("\nInvalid entry. Cancelling action\n");
+                   }
+                   break;
+               case 2:
+                   printf("\n Please enter the updated last name: ");
+                   scanf("%s", last_name);
+
+                   printf("\nName\t\t\t\tSALARY\t   ID\n");
+                   printf("----------------------------------------------\n");
+                   printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, last_name, employeeData[i].salary, employeeData[i].six_digit_ID);
+                   printf("----------------------------------------------\n");
+                   printf("Is this information correct? Enter 1 for Yes, or 0 for No.\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &choice);
+
+                   if (choice == 1)
+                   {
+                       printf("\nUpdate Complete.\n");
+                       strcpy(employeeData[i].last_name, last_name);
+                   }
+                   else if (choice == 0)
+                   {
+                       printf("\nUpdate Cancelled.\n");
+                   }
+                   else
+                   {
+                       printf("\nInvalid entry. Cancelling action\n");
+                   }
+                   break;
+               case 3:
+                   printf("\n Please enter the updated salary: ");
+                   scanf("%d", &updated_salary);
+
+                   printf("\nName\t\t\t\tSALARY\t   ID\n");
+                   printf("----------------------------------------------\n");
+                   printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, employeeData[i].last_name, updated_salary, employeeData[i].six_digit_ID);
+                   printf("----------------------------------------------\n");
+                   printf("Is this information correct? Enter 1 for Yes, or 0 for No.\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &choice);
+
+                   if (choice == 1)
+                   {
+                       printf("\nUpdate Complete.\n");
+                       employeeData[i].salary = updated_salary;
+                   }
+                   else if (choice == 0)
+                   {
+                       printf("\nUpdate Cancelled.\n");
+                   }
+                   else
+                   {
+                       printf("\nInvalid entry. Cancelling action\n");
+                   }
+                   break;
+               case 4:
+                   printf("\n Please enter the updated employee ID: ");
+                   scanf("%d", &updated_id);
+
+                   printf("\nName\t\t\t\tSALARY\t   ID\n");
+                   printf("----------------------------------------------\n");
+                   printf("%-15s\t%-15s\t%d\t%d\n", employeeData[i].first_name, employeeData[i].last_name, employeeData[i].salary, updated_id);
+                   printf("----------------------------------------------\n");
+                   printf("Is this information correct? Enter 1 for Yes, or 0 for No.\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &choice);
+
+                   if (choice == 1)
+                   {
+                       printf("\nUpdate Complete.\n");
+                       employeeData[i].six_digit_ID = updated_id;
+                   }
+                   else if (choice == 0)
+                   {
+                       printf("\nUpdate Cancelled.\n");
+                   }
+                   else
+                   {
+                       printf("\nInvalid entry. Cancelling action\n");
+                   }
+                   SelectionSort(employeeData, numOfEmployee);
+                   break;
+               case 5:
+                   printf("\n Please enter the updated first name: ");
+                   scanf("%s", first_name);
+                   printf("\n Please enter the updated last name: ");
+                   scanf("%s", last_name);
+                   printf("\n Please enter the updated salary: ");
+                   scanf("%d", &updated_salary);
+                   printf("\n Please enter the updated employee ID: ");
+                   scanf("%d", &updated_id);
+
+                   printf("\nName\t\t\t\tSALARY\t   ID\n");
+                   printf("----------------------------------------------\n");
+                   printf("%-15s\t%-15s\t%d\t%d\n", first_name, last_name, updated_salary, updated_id);
+                   printf("----------------------------------------------\n");
+                   printf("Is this information correct? Enter 1 for Yes, or 0 for No.\n");
+                   printf("Enter your choice: ");
+                   scanf("%d", &choice);
+
+                   if (choice == 1)
+                   {
+                       printf("\nUpdate Complete.\n");
+                       strcpy(employeeData[i].first_name, first_name);
+                       strcpy(employeeData[i].last_name, last_name);
+                       employeeData[i].salary = updated_salary;
+                       employeeData[i].six_digit_ID = updated_id;
+                   }
+                   else if (choice == 0)
+                   {
+                       printf("\nUpdate Cancelled.\n");
+                   }
+                   else
+                   {
+                       printf("\nInvalid entry. Cancelling action\n");
+                   }
+                   SelectionSort(employeeData, numOfEmployee);
+                   break;
+           }
+       }
+       else
+       {
+           printf("\nInvalid entry. Cancelling action\n");
+           return 0;
+       } 
+    return 0;
+}
+
+void printHighestSalary(struct Employee employeedata[], int n) { 
+    struct Employee salaryData[n]; 
+    int i;
+    int choice; 
+
+
+    for(i = 0; i < n; i++) { 
+        salaryData[n] = employeedata[n]; 
+    } 
+    
+    SelectionSortSalary(salaryData, n); 
+
+    printf("\nHow many top G's do you want to view boi?\n");
+
+    printf("Enter your number G: ");
+
+   scanf("%d", &choice); 
+
+   if(choice > n) { 
+        choice = n; 
+   } 
+
+   printDatabase(salaryData, choice); 
+}
+
+int matchingLastName(struct Employee employeedata[], int n, char* name) {
+    int i, h, s;
+    int check = -1;
+    char testname1[MAX_NAME], testname2[MAX_NAME];
+
+    s = strlen(name);
+    for (i = 0; i < s; i++)
+    {
+        testname1[i] = tolower(name[i]);
+    }
+
+    printf("\nName\t\t\t\tSALARY\t   ID\n");
+    printf("----------------------------------------------\n");
+    for (i = 0; i < n; i++)
+    {
+        s = strlen(employeedata[i].last_name);
+        for (h = 0; h < s; h++)
+        {
+            testname2[h] = tolower(employeedata[i].last_name[h]);
+        }
+        if (strcmp(testname1, testname2) == 0)
+        {
+            printf("%-15s\t%-15s\t%d\t%d\n", employeeDatabase[i].first_name,employeeDatabase[i].last_name,employeeDatabase[i].salary, employeeDatabase[i].six_digit_ID);
+            check = 0;
+        }
+     memset(&testname2[0], 0, sizeof(testname2));
+    }
+    printf("----------------------------------------------\n");
+
+    if (check == 0)
+    {
+        return check;
+    }
+    return check;
+}
+
+
 
 int main(int argc, char *argv[]) { 
 
@@ -211,6 +457,10 @@ int main(int argc, char *argv[]) {
     
     int choice; 
     int return_value;
+    int x = 0;
+    int target_ID;
+    char target_name[MAX_NAME];
+    
     if(open_file(argv[1]) == 0) { 
         char buffer[135];
         int ret; 
@@ -279,10 +529,48 @@ int main(int argc, char *argv[]) {
             case 4: 
                 addEmployee(employeeDatabase);
                 break;
-            case 5: printf("Come hack this later:) Goodbye!\n"); 
+            case 5: printf("Come hack this later:) GooemployeeDatabaseye!\n");
                 break;
             case 42: easterEgg();  
-                break; 
+                break;
+            case 6:
+                printf("\nPlease enter an employee ID: ");
+                scanf("%d", &target_ID);
+                x = employeeIDLookup(employeeDatabase, 0, numOfEmployee, target_ID);
+                if (x == -1)
+                {
+                    printf("\nUser with employee ID '%d' not found\n", target_ID);
+                }
+                else
+                {
+                    removeEmployee(employeeDatabase, x);
+                }
+                break;
+            case 7:
+                printf("\nPlease enter an employee ID: ");
+                scanf("%d", &target_ID);
+                x = employeeIDLookup(employeeDatabase, 0, numOfEmployee, target_ID);
+                if (x == -1)
+                {
+                    printf("\nUser with employee ID '%d' not found\n", target_ID);
+                }
+                else
+                {
+                    x = updateEmployee(employeeDatabase, x);
+                }
+                break;
+            case 8:
+                printHighestSalary(employeeDatabase, numOfEmployee);
+                break;
+            case 9:
+                printf("\nPlease enter an employee's last name: ");
+                scanf("%s", target_name);
+                x = employeeLastNameLookup(employeeDatabase, numOfEmployee, target_name);
+                if (x == -1)
+                {
+                    printf("\nUser with last name '%s' not found\n", target_name);
+                }
+                break;
             default: printf("Incorrect input, please try again\n\n"); 
                 break; 
         }

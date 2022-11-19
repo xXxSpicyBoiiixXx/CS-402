@@ -8,7 +8,7 @@ void introMenu() {
 }
 
 void Menu() { 
-    
+
     printf("\nEmployee DB Menu:\n"); 
     printf("----------------------------------\n"); 
     printf("\t(1) Print the Database\n");
@@ -16,6 +16,10 @@ void Menu() {
     printf("\t(3) Lookup by Last Name\n");
     printf("\t(4) Add an Employee (Hacker Mode Boi)\n");  
     printf("\t(5) Quit\n");
+    printf("\t(6) Remove an Employee\n");
+    printf("\t(7) Update Employee Record\n");
+    printf("\t(8) Print Employee(s) with Highest Salary\n");
+    printf("\t(9) Find all Employees with Entered Last Name\n");
     printf("----------------------------------\n");
     printf("Enter your choice: "); 
 }
